@@ -56,7 +56,7 @@ const portfolioData = {
       description: "A complete web platform hosted on PythonAnywhere.",
       tags: ["Python", "Django", "Web"],
       link: "https://soseuweb.pythonanywhere.com/",
-      color: "from-blue-500 to-cyan-500",
+      image: "/soseu.jpg",
       icon: "globe",
       // 🔥 ADDED: Status for this specific project
       status: "LIVE NOW"
@@ -233,8 +233,16 @@ export default function Portfolio() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {portfolioData.projects.map((project, i) => (
                 <a key={i} href={project.link} target="_blank" rel="noopener noreferrer" className="group relative bg-black/40 p-5 rounded-2xl border border-zinc-800 hover:border-zinc-600 transition-all cursor-pointer overflow-hidden">
-                  <div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r ${project.color}`} />
-                  <ProjectIconAnimation icon={project.icon || ""} />
+{/* If image exists, show it. If not, show gradient */}
+{project.image ? (
+  <img 
+    src={project.image} 
+    alt={project.title} 
+    className="absolute top-0 left-0 w-full h-full object-cover opacity-50 group-hover:opacity-30 transition-opacity" 
+  />
+) : (
+  <div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r ${project.color}`} />
+)}                  <ProjectIconAnimation icon={project.icon || ""} />
                   
                   {/* 🔥 NEW: PULSING LIVE STATUS INDICATOR 🔥 */}
                   {project.status && (
