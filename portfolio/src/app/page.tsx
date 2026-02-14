@@ -4,7 +4,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { 
   Github, Linkedin, Mail, Instagram, Facebook, 
-  Terminal, Code2, Cpu, Globe, BookOpen, Activity, Smartphone, ExternalLink, Sparkles 
+  Terminal, Code2, Cpu, Globe, BookOpen, Activity, Smartphone, ExternalLink, Flame 
 } from "lucide-react";
 
 // --- 🛠️ DATA SECTION 🛠️ ---
@@ -40,7 +40,6 @@ const portfolioData = {
     { name: "React", slug: "react" },
     { name: "Next.js", slug: "nextdotjs" },
     { name: "Tailwind", slug: "tailwindcss" },
-    { name: "Django", slug: "django" },
     { name: "Firebase", slug: "firebase" },
     { name: "Git", slug: "git" },
     { name: "Linux", slug: "linux" },
@@ -172,25 +171,41 @@ export default function Portfolio() {
         {/* BENTO GRID SECTION */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           
-          {/* 🌟 NEW SKILLS SECTION WITH LOGOS */}
+          {/* 🌟 SKILLS SECTION */}
           <Card className="md:col-span-1 md:row-span-2 flex flex-col gap-6" delay={0.3}>
-            {/* GOLD TIER: Flutter & Android Studio */}
+            {/* 🔥🔥🔥 FLAMING MASTERY TIER 🔥🔥🔥 */}
             <div className="flex flex-col gap-3">
                <div className="flex items-center gap-2 mb-1">
-                  <Sparkles size={16} className="text-yellow-400 animate-pulse" />
-                  <h3 className="font-bold text-sm text-yellow-500 uppercase tracking-widest">Mastery</h3>
+                  {/* Pulsing Title Flame */}
+                  <motion.div animate={{ opacity: [0.6, 1, 0.6], scale: [1, 1.1, 1] }} transition={{ duration: 0.5, repeat: Infinity }}>
+                    <Flame size={16} className="text-orange-500" />
+                  </motion.div>
+                  <h3 className="font-bold text-sm text-orange-500 uppercase tracking-widest">Mastery</h3>
                </div>
                <div className="grid grid-cols-2 gap-3">
                   {portfolioData.topSkills.map((skill, i) => (
-                    <div key={i} className="relative group flex flex-col items-center justify-center p-3 rounded-xl border border-yellow-500/30 bg-gradient-to-b from-yellow-900/20 to-transparent shadow-[0_0_15px_rgba(234,179,8,0.1)] hover:shadow-[0_0_25px_rgba(234,179,8,0.4)] transition-all">
-                       {/* Sparkle Effect */}
-                       <div className="absolute top-1 right-1 opacity-50 group-hover:opacity-100 animate-pulse"><Sparkles size={12} className="text-yellow-300"/></div>
+                    <div key={i} className="relative group flex flex-col items-center justify-center p-3 rounded-xl border border-orange-500/30 bg-gradient-to-b from-orange-900/20 to-transparent shadow-[0_0_15px_rgba(249,115,22,0.1)] hover:shadow-[0_0_25px_rgba(249,115,22,0.4)] transition-all">
+                       {/* 🔥 Flickering Corner Flame Animation 🔥 */}
+                       <motion.div
+                          className="absolute top-1 right-1"
+                          animate={{
+                            opacity: [0.6, 1, 0.7, 1, 0.8],
+                            scale: [1, 1.1, 1.05, 1.15, 1],
+                          }}
+                          transition={{
+                            duration: 0.2,
+                            repeat: Infinity,
+                            repeatType: "reverse",
+                          }}
+                        >
+                         <Flame size={14} className="text-red-500 drop-shadow-[0_0_5px_rgba(239,68,68,0.8)]" />
+                       </motion.div>
                        <img 
                           src={`https://cdn.simpleicons.org/${skill.slug}`} 
                           alt={skill.name} 
                           className="w-10 h-10 mb-2 drop-shadow-md transition-transform group-hover:scale-110" 
                        />
-                       <span className="text-[10px] font-bold text-yellow-100">{skill.name}</span>
+                       <span className="text-[10px] font-bold text-orange-100">{skill.name}</span>
                     </div>
                   ))}
                </div>
