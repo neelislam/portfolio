@@ -97,8 +97,8 @@ export default function Portfolio() {
           {/* Socials & Photo Placeholder - Tall */}
           <Card className="md:col-span-1 flex flex-col justify-between" delay={0.2}>
             <div>
-               <div className="w-16 h-16 bg-gradient-to-br from-white to-zinc-500 rounded-2xl mb-6" />
-               <p className="text-zinc-400 text-sm mb-4">{portfolioData.bio}</p>
+              <img src="/me.jpg" alt="Profile Picture" className="w-16 h-16 rounded-2xl mb-6 object-cover border-2 border-zinc-800" />
+              <p className="text-zinc-400 text-sm mb-4">{portfolioData.bio}</p>
             </div>
             <div className="flex gap-4">
               <a href={portfolioData.socials.github} target="_blank" className="p-2 bg-zinc-800 rounded-full hover:bg-white hover:text-black transition-all">
