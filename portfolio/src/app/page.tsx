@@ -93,24 +93,43 @@ const portfolioData = {
   ]
 };
 
-// --- 🌊 BACKGROUND ANIMATION COMPONENT 🌊 ---
+// --- 🌊 BACKGROUND ANIMATION COMPONENT (FIXED VISIBILITY) 🌊 ---
 const BackgroundWaves = () => (
   <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
+    {/* Solid Black Background */}
     <div className="absolute inset-0 bg-black" />
+    
+    {/* Blob 1: Purple/Pink (Top Left) - Increased Opacity */}
     <motion.div 
-      animate={{ scale: [1, 1.2, 1], rotate: [0, 90, 0], opacity: [0.1, 0.2, 0.1] }}
-      transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-      className="absolute -top-[20%] -left-[10%] w-[70vw] h-[70vw] bg-purple-900/30 rounded-full blur-[100px]"
-    />
-    <motion.div 
-      animate={{ scale: [1, 1.5, 1], x: [-50, 50, -50], opacity: [0.1, 0.15, 0.1] }}
-      transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
-      className="absolute top-[20%] right-[0%] w-[50vw] h-[50vw] bg-blue-900/20 rounded-full blur-[120px]"
-    />
-    <motion.div 
-      animate={{ y: [0, -50, 0], opacity: [0.05, 0.1, 0.05] }}
+      animate={{ 
+        scale: [1, 1.2, 1], 
+        rotate: [0, 90, 0],
+        opacity: [0.3, 0.5, 0.3]  // <-- Much higher visibility
+      }}
       transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-      className="absolute bottom-[-10%] left-[20%] w-[60vw] h-[60vw] bg-cyan-900/20 rounded-full blur-[100px]"
+      className="absolute -top-[10%] -left-[10%] w-[70vw] h-[70vw] bg-purple-600 rounded-full blur-[120px]"
+    />
+    
+    {/* Blob 2: Blue/Cyan (Top Right) */}
+    <motion.div 
+      animate={{ 
+        scale: [1, 1.3, 1], 
+        x: [-50, 50, -50],
+        opacity: [0.3, 0.6, 0.3] // <-- Much higher visibility
+      }}
+      transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+      className="absolute top-[10%] right-[-10%] w-[60vw] h-[60vw] bg-blue-600 rounded-full blur-[140px]"
+    />
+    
+    {/* Blob 3: Teal/Green (Bottom Left) */}
+    <motion.div 
+      animate={{ 
+        y: [0, -50, 0],
+        scale: [1, 1.1, 1],
+        opacity: [0.2, 0.5, 0.2] // <-- Much higher visibility
+      }}
+      transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
+      className="absolute bottom-[-10%] left-[20%] w-[60vw] h-[60vw] bg-cyan-600 rounded-full blur-[130px]"
     />
   </div>
 );
