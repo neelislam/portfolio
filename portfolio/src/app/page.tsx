@@ -64,7 +64,7 @@ const portfolioData = {
       description: "A feature-rich Android app for buying and selling books with AI integration.",
       tags: ["Android", "Java", "Firebase", "AI"],
       link: "https://github.com/neelislam/book_shop_online",
-      image: "/Simple Home page.png", // <--- 📸 ADDED BACKGROUND IMAGE HERE
+      image: "/Simple Home page copy.png", // <--- 📸 ADDED BACKGROUND IMAGE HERE
       icon: "book",
       gallery: [
         { img: "/Simple Home page.png", title: "Intuitive Home", desc: "A clean, modern interface designed for easy navigation and discovery." },
