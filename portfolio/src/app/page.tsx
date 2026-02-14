@@ -4,7 +4,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { 
   Github, Linkedin, Mail, Instagram, Facebook, 
-  Terminal, Code2, Cpu, Globe, BookOpen, Activity, Smartphone, ExternalLink 
+  Terminal, Code2, Cpu, Globe, BookOpen, Activity, Smartphone, ExternalLink, Sparkles 
 } from "lucide-react";
 
 // --- 🛠️ DATA SECTION 🛠️ ---
@@ -20,8 +20,30 @@ const portfolioData = {
     instagram: "https://www.instagram.com/neel_islam_/",
     facebook: "https://www.facebook.com/rabiul.islam.apu.3",
   },
+  // 🌟 GOLD TIER SKILLS (Top, Glowing)
+  topSkills: [
+    { name: "Flutter", slug: "flutter", color: "#02569B" },
+    { name: "Android Studio", slug: "androidstudio", color: "#3DDC84" }
+  ],
+  // 🔧 STANDARD SKILLS (Bottom, List)
   skills: [
-    "React", "Next.js", "Flutter", "Tailwind", "Python", "Django", "PHP", "Laravel", "Blockchain"
+    { name: "HTML", slug: "html5" },
+    { name: "CSS", slug: "css3" },
+    { name: "JavaScript", slug: "javascript" },
+    { name: "Dart", slug: "dart" },
+    { name: "Java", slug: "openjdk" },
+    { name: "Python", slug: "python" },
+    { name: "C", slug: "c" },
+    { name: "C++", slug: "cplusplus" },
+    { name: "PHP", slug: "php" },
+    { name: "React", slug: "react" },
+    { name: "Next.js", slug: "nextdotjs" },
+    { name: "Tailwind", slug: "tailwindcss" },
+    { name: "Django", slug: "django" },
+    { name: "Firebase", slug: "firebase" },
+    { name: "Git", slug: "git" },
+    { name: "Linux", slug: "linux" },
+    { name: "VS Code", slug: "visualstudiocode" },
   ],
   stats: [
     { label: "Years Exp", value: "4+" },
@@ -62,7 +84,6 @@ const portfolioData = {
       icon: "phone"
     }
   ],
-  // 🏆 NEW CERTIFICATES SECTION
   certifications: [
     { name: "Flutter App Development", link: "https://ostad.app/share/certificate/c35493-rabiul-islam-apu" },
     { name: "Blockchain & Crypto", link: "https://ostad.app/share/certificate/c28697-rabiul-islam-apu" },
@@ -102,12 +123,6 @@ const Card = ({ children, className, delay = 0 }: { children: React.ReactNode; c
   >
     {children}
   </motion.div>
-);
-
-const Badge = ({ text }: { text: string }) => (
-  <span className="px-3 py-1 bg-zinc-800/80 rounded-full text-xs font-medium text-zinc-300 border border-zinc-700/50">
-    {text}
-  </span>
 );
 
 const ProjectIconAnimation = ({ icon }: { icon: string }) => {
@@ -156,13 +171,48 @@ export default function Portfolio() {
         {/* BENTO GRID SECTION */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           
-          <Card className="md:col-span-1 md:row-span-2" delay={0.3}>
-            <div className="flex items-center gap-2 mb-6">
-              <Terminal size={20} className="text-blue-400" />
-              <h3 className="font-bold text-lg">Stack</h3>
+          {/* 🌟 NEW SKILLS SECTION WITH LOGOS */}
+          <Card className="md:col-span-1 md:row-span-2 flex flex-col gap-6" delay={0.3}>
+            {/* GOLD TIER: Flutter & Android Studio */}
+            <div className="flex flex-col gap-3">
+               <div className="flex items-center gap-2 mb-1">
+                  <Sparkles size={16} className="text-yellow-400 animate-pulse" />
+                  <h3 className="font-bold text-sm text-yellow-500 uppercase tracking-widest">Mastery</h3>
+               </div>
+               <div className="grid grid-cols-2 gap-3">
+                  {portfolioData.topSkills.map((skill, i) => (
+                    <div key={i} className="relative group flex flex-col items-center justify-center p-3 rounded-xl border border-yellow-500/30 bg-gradient-to-b from-yellow-900/20 to-transparent shadow-[0_0_15px_rgba(234,179,8,0.1)] hover:shadow-[0_0_25px_rgba(234,179,8,0.4)] transition-all">
+                       {/* Sparkle Effect */}
+                       <div className="absolute top-1 right-1 opacity-50 group-hover:opacity-100 animate-pulse"><Sparkles size={12} className="text-yellow-300"/></div>
+                       <img 
+                          src={`https://cdn.simpleicons.org/${skill.slug}`} 
+                          alt={skill.name} 
+                          className="w-10 h-10 mb-2 drop-shadow-md transition-transform group-hover:scale-110" 
+                       />
+                       <span className="text-[10px] font-bold text-yellow-100">{skill.name}</span>
+                    </div>
+                  ))}
+               </div>
             </div>
-            <div className="flex flex-wrap gap-2">
-              {portfolioData.skills.map((skill, i) => <Badge key={i} text={skill} />)}
+
+            {/* NORMAL TIER: Other Skills */}
+            <div>
+              <div className="flex items-center gap-2 mb-3">
+                <Terminal size={16} className="text-zinc-500" />
+                <h3 className="font-bold text-xs text-zinc-500 uppercase tracking-widest">Toolkit</h3>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {portfolioData.skills.map((skill, i) => (
+                  <div key={i} className="flex items-center gap-2 px-3 py-1.5 bg-zinc-800/50 rounded-lg border border-zinc-700/50 hover:bg-zinc-800 hover:border-zinc-600 transition-colors">
+                    <img 
+                      src={`https://cdn.simpleicons.org/${skill.slug}/white`} 
+                      alt={skill.name} 
+                      className="w-3.5 h-3.5 opacity-70" 
+                    />
+                    <span className="text-xs text-zinc-400">{skill.name}</span>
+                  </div>
+                ))}
+              </div>
             </div>
           </Card>
 
@@ -197,7 +247,7 @@ export default function Portfolio() {
             ))}
           </Card>
 
-          {/* 🏆 NEW CERTIFICATIONS SECTION WITH LINKS */}
+          {/* CERTIFICATIONS SECTION */}
           <Card className="md:col-span-1" delay={0.6}>
             <div className="flex items-center gap-2 mb-4">
               <Cpu size={20} className="text-orange-400" />
