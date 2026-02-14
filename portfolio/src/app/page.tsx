@@ -4,7 +4,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { 
   Github, Linkedin, Mail, Instagram, Facebook, 
-  Terminal, Code2, Cpu, Globe, BookOpen, Activity, Smartphone, ExternalLink, Flame 
+  Terminal, Code2, Cpu, Globe, BookOpen, Activity, Smartphone, ExternalLink, Flame, Radio 
 } from "lucide-react";
 
 // --- 🛠️ DATA SECTION 🛠️ ---
@@ -57,7 +57,9 @@ const portfolioData = {
       tags: ["Python", "Django", "Web"],
       link: "https://soseuweb.pythonanywhere.com/",
       color: "from-blue-500 to-cyan-500",
-      icon: "globe"
+      icon: "globe",
+      // 🔥 ADDED: Status for this specific project
+      status: "LIVE NOW"
     },
     {
       title: "Bookshop App",
@@ -176,7 +178,6 @@ export default function Portfolio() {
             {/* 🔥🔥🔥 FLAMING MASTERY TIER 🔥🔥🔥 */}
             <div className="flex flex-col gap-3">
                <div className="flex items-center gap-2 mb-1">
-                  {/* Pulsing Title Flame */}
                   <motion.div animate={{ opacity: [0.6, 1, 0.6], scale: [1, 1.1, 1] }} transition={{ duration: 0.5, repeat: Infinity }}>
                     <Flame size={16} className="text-orange-500" />
                   </motion.div>
@@ -185,18 +186,10 @@ export default function Portfolio() {
                <div className="grid grid-cols-2 gap-3">
                   {portfolioData.topSkills.map((skill, i) => (
                     <div key={i} className="relative group flex flex-col items-center justify-center p-3 rounded-xl border border-orange-500/30 bg-gradient-to-b from-orange-900/20 to-transparent shadow-[0_0_15px_rgba(249,115,22,0.1)] hover:shadow-[0_0_25px_rgba(249,115,22,0.4)] transition-all">
-                       {/* 🔥 Flickering Corner Flame Animation 🔥 */}
                        <motion.div
                           className="absolute top-1 right-1"
-                          animate={{
-                            opacity: [0.6, 1, 0.7, 1, 0.8],
-                            scale: [1, 1.1, 1.05, 1.15, 1],
-                          }}
-                          transition={{
-                            duration: 0.2,
-                            repeat: Infinity,
-                            repeatType: "reverse",
-                          }}
+                          animate={{ opacity: [0.6, 1, 0.7, 1, 0.8], scale: [1, 1.1, 1.05, 1.15, 1] }}
+                          transition={{ duration: 0.2, repeat: Infinity, repeatType: "reverse" }}
                         >
                          <Flame size={14} className="text-red-500 drop-shadow-[0_0_5px_rgba(239,68,68,0.8)]" />
                        </motion.div>
@@ -242,7 +235,19 @@ export default function Portfolio() {
                 <a key={i} href={project.link} target="_blank" rel="noopener noreferrer" className="group relative bg-black/40 p-5 rounded-2xl border border-zinc-800 hover:border-zinc-600 transition-all cursor-pointer overflow-hidden">
                   <div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r ${project.color}`} />
                   <ProjectIconAnimation icon={project.icon || ""} />
-                  <div className="relative z-10">
+                  
+                  {/* 🔥 NEW: PULSING LIVE STATUS INDICATOR 🔥 */}
+                  {project.status && (
+                    <div className="absolute top-3 right-3 flex items-center gap-1.5 px-2.5 py-1 bg-green-900/60 border border-green-500/50 rounded-full z-20 backdrop-blur-md shadow-[0_0_10px_rgba(34,197,94,0.3)]">
+                      <span className="relative flex h-2 w-2">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                        <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                      </span>
+                      <span className="text-[10px] font-bold text-green-100 tracking-wider uppercase">{project.status}</span>
+                    </div>
+                  )}
+
+                  <div className="relative z-10 mt-2">
                     <h4 className="font-bold text-white text-lg mb-2 group-hover:text-blue-400 transition-colors">{project.title}</h4>
                     <p className="text-sm text-zinc-400 mb-4 h-10">{project.description}</p>
                     <div className="flex flex-wrap gap-2">
