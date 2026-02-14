@@ -6,7 +6,7 @@ import { Github, Linkedin, Mail, ExternalLink, Code2, Terminal, Cpu, Globe } fro
 
 // --- 🛠️ EDIT THIS DATA TO UPDATE YOUR PORTFOLIO 🛠️ ---
 const portfolioData = {
-  name: "Alex Dev",
+  name: "Rabiul Islam Apu",
   title: "Full Stack Engineer & UI Designer",
   bio: "I build pixel-perfect, engaging, and accessible digital experiences. Obsessed with performance and clean code.",
   location: "San Francisco, CA",
