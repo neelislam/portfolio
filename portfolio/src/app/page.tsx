@@ -93,52 +93,58 @@ const portfolioData = {
   ]
 };
 
-// --- 🌊 LIQUID NEON PLASMA BACKGROUND (Moving Random Loop) 🌊 ---
+// --- 🌊 LIQUID PLASMA BACKGROUND (TURBO CHARGED) 🌊 ---
 const LiquidPlasmaBackground = () => (
   <div className="fixed inset-0 -z-10 overflow-hidden bg-black">
-    {/* Layer 1: Deep Purple Swirl */}
+    
+    {/* 1. Grain Texture Overlay (Gives it that realistic "noise" look) */}
+    <div className="absolute inset-0 opacity-20 mix-blend-overlay pointer-events-none z-50" 
+         style={{ backgroundImage: 'url("https://grainy-gradients.vercel.app/noise.svg")' }}></div>
+
+    {/* Layer 1: Intense Red/Pink (Magma) */}
     <motion.div 
       animate={{ 
-        scale: [1, 1.2, 1], 
-        rotate: [0, 45, 0], 
-        x: [0, 50, -50, 0],
-        y: [0, 30, -30, 0]
+        scale: [1, 1.5, 1], 
+        rotate: [0, 90, 0], 
+        x: [0, 100, -100, 0],
+        y: [0, 50, -50, 0]
       }}
-      transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
-      className="absolute top-[-20%] left-[-20%] w-[80vw] h-[80vw] bg-purple-900 rounded-full blur-[100px] opacity-40 mix-blend-screen"
+      transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
+      className="absolute top-[-10%] left-[-20%] w-[80vw] h-[80vw] bg-[#FF0080] rounded-full mix-blend-hard-light blur-[80px] opacity-60"
     />
 
-    {/* Layer 2: Electric Blue Flow */}
+    {/* Layer 2: Electric Purple (The Core) */}
     <motion.div 
       animate={{ 
         scale: [1.2, 1, 1.2], 
-        rotate: [0, -30, 0], 
-        x: [0, -40, 40, 0],
-        y: [0, -40, 40, 0]
+        rotate: [0, -60, 0], 
+        x: [0, -150, 150, 0],
+        y: [0, 100, -100, 0]
       }}
-      transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
-      className="absolute bottom-[-10%] right-[-10%] w-[70vw] h-[70vw] bg-blue-800 rounded-full blur-[120px] opacity-40 mix-blend-screen"
+      transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+      className="absolute bottom-[-20%] right-[-10%] w-[90vw] h-[90vw] bg-[#7928CA] rounded-full mix-blend-hard-light blur-[80px] opacity-60"
     />
 
-    {/* Layer 3: Hot Pink/Red Pulse (The "Magma" look) */}
+    {/* Layer 3: Deep Blue (The Flow) */}
     <motion.div 
       animate={{ 
-        scale: [1, 1.4, 1], 
-        x: [-20, 20, -20],
-        opacity: [0.2, 0.5, 0.2]
+        scale: [1, 1.3, 1], 
+        x: [-50, 100, -50],
+        y: [50, -100, 50]
+      }}
+      transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
+      className="absolute top-[20%] right-[20%] w-[70vw] h-[70vw] bg-blue-600 rounded-full mix-blend-hard-light blur-[90px] opacity-50"
+    />
+
+    {/* Layer 4: Cyan Highlight (The Glint) */}
+    <motion.div 
+      animate={{ 
+        x: [0, 200, -200, 0],
+        y: [0, -100, 100, 0],
+        scale: [1, 0.8, 1]
       }}
       transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
-      className="absolute top-[30%] left-[20%] w-[50vw] h-[50vw] bg-pink-700 rounded-full blur-[130px] opacity-30 mix-blend-screen"
-    />
-
-    {/* Layer 4: Cyan Drift (To add depth) */}
-    <motion.div 
-      animate={{ 
-        rotate: [0, 360],
-        scale: [1, 1.1, 1] 
-      }}
-      transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-      className="absolute top-[10%] right-[20%] w-[40vw] h-[40vw] bg-cyan-900 rounded-full blur-[90px] opacity-20 mix-blend-screen"
+      className="absolute bottom-[10%] left-[10%] w-[40vw] h-[40vw] bg-cyan-500 rounded-full mix-blend-hard-light blur-[60px] opacity-40"
     />
   </div>
 );
@@ -165,7 +171,7 @@ const ProjectIconAnimation = ({ icon }: { icon: string }) => {
 
 export default function Portfolio() {
   return (
-    <div className="min-h-screen text-zinc-100 p-4 md:p-8 font-sans selection:bg-purple-500/30 relative overflow-hidden">
+    <div className="min-h-screen text-zinc-100 p-4 md:p-8 font-sans bg-transparent relative overflow-hidden">
       
       {/* 🌊 NEW LIQUID BACKGROUND */}
       <LiquidPlasmaBackground />
