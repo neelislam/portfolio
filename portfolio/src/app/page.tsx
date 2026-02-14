@@ -1,10 +1,11 @@
 "use client";
 
-import React from "react";
-import { motion } from "framer-motion";
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { 
   Github, Linkedin, Mail, Instagram, Facebook, 
-  Terminal, Code2, Cpu, Globe, BookOpen, Activity, Smartphone, ExternalLink, Flame 
+  Terminal, Code2, Cpu, Globe, BookOpen, Activity, Smartphone, 
+  ExternalLink, Flame, X, ChevronLeft, ChevronRight 
 } from "lucide-react";
 
 // --- 🛠️ DATA SECTION 🛠️ ---
@@ -20,12 +21,10 @@ const portfolioData = {
     instagram: "https://www.instagram.com/neel_islam_/",
     facebook: "https://www.facebook.com/rabiul.islam.apu.3",
   },
-  // 🌟 GOLD TIER SKILLS (Top, Glowing)
   topSkills: [
     { name: "Flutter", slug: "flutter", color: "#02569B" },
     { name: "Android Studio", slug: "androidstudio", color: "#3DDC84" }
   ],
-  // 🔧 STANDARD SKILLS (Bottom, List)
   skills: [
     { name: "HTML", slug: "html5" },
     { name: "CSS", slug: "css3" },
@@ -58,16 +57,28 @@ const portfolioData = {
       link: "https://soseuweb.pythonanywhere.com/",
       image: "/soseu.jpg",
       icon: "globe",
-      // 🔥 Status for this specific project
       status: "LIVE NOW"
     },
     {
       title: "Bookshop App",
-      description: "An online book buying platform for Android.",
-      tags: ["Android", "Java", "Firebase"],
+      description: "A feature-rich Android app for buying and selling books with AI integration.",
+      tags: ["Android", "Java", "Firebase", "AI"],
       link: "https://github.com/neelislam/book_shop_online",
       color: "from-emerald-500 to-green-500",
-      icon: "book"
+      icon: "book",
+      // 📸 GALLERY FOR POPUP
+      gallery: [
+        { img: "/Simple Home page.png", title: "Intuitive Home", desc: "A clean, modern interface designed for easy navigation and discovery." },
+        { img: "/side drawer.png", title: "Navigation Drawer", desc: "Quick access to profile, settings, and orders with a smooth sliding drawer." },
+        { img: "/find by category.png", title: "Smart Categorization", desc: "Browse books by genre, author, or popularity instantly." },
+        { img: "/ai generated summary of books.png", title: "AI Book Summaries", desc: "Get instant, AI-powered summaries to decide your next read." },
+        { img: "/cart.png", title: "Smart Cart", desc: "Manage your items with real-time price calculation and updates." },
+        { img: "/online payment options.png", title: "Secure Payments", desc: "Integrated with multiple payment gateways for safe transactions." },
+        { img: "/sell your books online.png", title: "Sell Your Books", desc: "A marketplace feature allowing users to list their own used books." },
+        { img: "/pre-owned book section.png", title: "Pre-Owned Market", desc: "Dedicated section for affordable, pre-loved books." },
+        { img: "/see preowned book status.png", title: "Condition Transparency", desc: "View detailed condition reports and verification for used books." },
+        { img: "/easy sign in sign up.png", title: "Seamless Auth", desc: "Secure and fast login experience using Firebase Authentication." },
+      ]
     },
     {
       title: "Patient History",
@@ -93,69 +104,25 @@ const portfolioData = {
   ]
 };
 
-// --- 🌊 LIQUID PLASMA BACKGROUND (TURBO CHARGED) 🌊 ---
+// --- 🌊 BACKGROUND COMPONENT 🌊 ---
 const LiquidPlasmaBackground = () => (
   <div className="fixed inset-0 -z-10 overflow-hidden bg-black">
-    
-    {/* 1. Grain Texture Overlay (Gives it that realistic "noise" look) */}
-    <div className="absolute inset-0 opacity-20 mix-blend-overlay pointer-events-none z-50" 
-         style={{ backgroundImage: 'url("https://grainy-gradients.vercel.app/noise.svg")' }}></div>
-
-    {/* Layer 1: Intense Red/Pink (Magma) */}
-    <motion.div 
-      animate={{ 
-        scale: [1, 1.5, 1], 
-        rotate: [0, 90, 0], 
-        x: [0, 100, -100, 0],
-        y: [0, 50, -50, 0]
-      }}
-      transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
-      className="absolute top-[-10%] left-[-20%] w-[80vw] h-[80vw] bg-[#FF0080] rounded-full mix-blend-hard-light blur-[80px] opacity-60"
-    />
-
-    {/* Layer 2: Electric Purple (The Core) */}
-    <motion.div 
-      animate={{ 
-        scale: [1.2, 1, 1.2], 
-        rotate: [0, -60, 0], 
-        x: [0, -150, 150, 0],
-        y: [0, 100, -100, 0]
-      }}
-      transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-      className="absolute bottom-[-20%] right-[-10%] w-[90vw] h-[90vw] bg-[#7928CA] rounded-full mix-blend-hard-light blur-[80px] opacity-60"
-    />
-
-    {/* Layer 3: Deep Blue (The Flow) */}
-    <motion.div 
-      animate={{ 
-        scale: [1, 1.3, 1], 
-        x: [-50, 100, -50],
-        y: [50, -100, 50]
-      }}
-      transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
-      className="absolute top-[20%] right-[20%] w-[70vw] h-[70vw] bg-blue-600 rounded-full mix-blend-hard-light blur-[90px] opacity-50"
-    />
-
-    {/* Layer 4: Cyan Highlight (The Glint) */}
-    <motion.div 
-      animate={{ 
-        x: [0, 200, -200, 0],
-        y: [0, -100, 100, 0],
-        scale: [1, 0.8, 1]
-      }}
-      transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
-      className="absolute bottom-[10%] left-[10%] w-[40vw] h-[40vw] bg-cyan-500 rounded-full mix-blend-hard-light blur-[60px] opacity-40"
-    />
+    <div className="absolute inset-0 opacity-20 mix-blend-overlay pointer-events-none z-50" style={{ backgroundImage: 'url("https://grainy-gradients.vercel.app/noise.svg")' }}></div>
+    <motion.div animate={{ scale: [1, 1.5, 1], rotate: [0, 90, 0], x: [0, 100, -100, 0], y: [0, 50, -50, 0] }} transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }} className="absolute top-[-10%] left-[-20%] w-[80vw] h-[80vw] bg-[#FF0080] rounded-full mix-blend-hard-light blur-[80px] opacity-60" />
+    <motion.div animate={{ scale: [1.2, 1, 1.2], rotate: [0, -60, 0], x: [0, -150, 150, 0], y: [0, 100, -100, 0] }} transition={{ duration: 25, repeat: Infinity, ease: "linear" }} className="absolute bottom-[-20%] right-[-10%] w-[90vw] h-[90vw] bg-[#7928CA] rounded-full mix-blend-hard-light blur-[80px] opacity-60" />
+    <motion.div animate={{ scale: [1, 1.3, 1], x: [-50, 100, -50], y: [50, -100, 50] }} transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }} className="absolute top-[20%] right-[20%] w-[70vw] h-[70vw] bg-blue-600 rounded-full mix-blend-hard-light blur-[90px] opacity-50" />
+    <motion.div animate={{ x: [0, 200, -200, 0], y: [0, -100, 100, 0], scale: [1, 0.8, 1] }} transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }} className="absolute bottom-[10%] left-[10%] w-[40vw] h-[40vw] bg-cyan-500 rounded-full mix-blend-hard-light blur-[60px] opacity-40" />
   </div>
 );
 
 // --- 🎨 UI COMPONENTS ---
-const Card = ({ children, className, delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) => (
+const Card = ({ children, className, delay = 0, onClick }: { children: React.ReactNode; className?: string; delay?: number; onClick?: () => void }) => (
   <motion.div
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.5, delay }}
-    className={`bg-black/30 border border-white/10 backdrop-blur-md rounded-3xl p-6 hover:border-white/20 hover:bg-black/40 transition-all duration-300 shadow-xl ${className}`}
+    onClick={onClick}
+    className={`bg-black/30 border border-white/10 backdrop-blur-md rounded-3xl p-6 hover:border-white/20 hover:bg-black/40 transition-all duration-300 shadow-xl ${className} ${onClick ? 'cursor-pointer' : ''}`}
   >
     {children}
   </motion.div>
@@ -169,12 +136,124 @@ const ProjectIconAnimation = ({ icon }: { icon: string }) => {
   return null;
 };
 
-export default function Portfolio() {
+// --- 🖼️ PROJECT DETAILS MODAL COMPONENT 🖼️ ---
+const ProjectModal = ({ project, onClose }: { project: any, onClose: () => void }) => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const nextSlide = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setCurrentSlide((prev) => (prev === project.gallery.length - 1 ? 0 : prev + 1));
+  };
+
+  const prevSlide = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setCurrentSlide((prev) => (prev === 0 ? project.gallery.length - 1 : prev - 1));
+  };
+
+  if (!project) return null;
+
   return (
-    <div className="min-h-screen text-zinc-100 p-4 md:p-8 font-sans bg-transparent relative overflow-hidden">
-      
-      {/* 🌊 NEW LIQUID BACKGROUND */}
+    <motion.div 
+      initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md"
+      onClick={onClose}
+    >
+      <motion.div 
+        initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.9, opacity: 0 }}
+        className="bg-zinc-900/90 border border-zinc-700 w-full max-w-5xl h-[85vh] md:h-[70vh] rounded-3xl overflow-hidden flex flex-col md:flex-row shadow-2xl relative"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* CLOSE BUTTON */}
+        <button onClick={onClose} className="absolute top-4 right-4 z-50 p-2 bg-black/50 rounded-full hover:bg-red-500/80 transition-colors text-white">
+          <X size={20} />
+        </button>
+
+        {/* LEFT SIDE: CAROUSEL (Only if gallery exists) */}
+        {project.gallery ? (
+          <div className="w-full md:w-2/3 h-1/2 md:h-full relative bg-black flex items-center justify-center">
+            <AnimatePresence mode="wait">
+              <motion.img 
+                key={currentSlide}
+                src={project.gallery[currentSlide].img}
+                alt={project.gallery[currentSlide].title}
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -20 }}
+                transition={{ duration: 0.3 }}
+                className="max-h-full max-w-full object-contain"
+              />
+            </AnimatePresence>
+            
+            {/* NAVIGATION ARROWS */}
+            <button onClick={prevSlide} className="absolute left-4 top-1/2 -translate-y-1/2 p-2 bg-black/50 rounded-full hover:bg-white/20 text-white transition-all">
+              <ChevronLeft size={24} />
+            </button>
+            <button onClick={nextSlide} className="absolute right-4 top-1/2 -translate-y-1/2 p-2 bg-black/50 rounded-full hover:bg-white/20 text-white transition-all">
+              <ChevronRight size={24} />
+            </button>
+            
+            {/* DOT INDICATORS */}
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+              {project.gallery.map((_: any, idx: number) => (
+                <div key={idx} className={`w-2 h-2 rounded-full transition-all ${idx === currentSlide ? "bg-white w-4" : "bg-white/30"}`} />
+              ))}
+            </div>
+          </div>
+        ) : (
+          <div className="w-full md:w-2/3 h-1/2 md:h-full bg-gradient-to-br from-gray-900 to-black flex items-center justify-center">
+             <ProjectIconAnimation icon={project.icon} />
+          </div>
+        )}
+
+        {/* RIGHT SIDE: DETAILS */}
+        <div className="w-full md:w-1/3 p-8 flex flex-col justify-between overflow-y-auto bg-zinc-900/50">
+          <div>
+            <h2 className="text-3xl font-bold text-white mb-2">{project.title}</h2>
+            <div className="flex flex-wrap gap-2 mb-6">
+              {project.tags.map((tag: string, i: number) => (
+                 <span key={i} className="text-xs px-2 py-1 bg-white/10 rounded text-zinc-300 border border-white/10">{tag}</span>
+              ))}
+            </div>
+            
+            {project.gallery ? (
+               <div className="space-y-4">
+                  <h3 className="text-xl font-semibold text-blue-400">{project.gallery[currentSlide].title}</h3>
+                  <p className="text-zinc-400 leading-relaxed text-sm">
+                    {project.gallery[currentSlide].desc}
+                  </p>
+               </div>
+            ) : (
+               <p className="text-zinc-400 leading-relaxed">{project.description}</p>
+            )}
+          </div>
+
+          <div className="mt-8">
+            <a 
+              href={project.link} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="flex items-center justify-center gap-2 w-full py-3 bg-blue-600 hover:bg-blue-500 text-white font-semibold rounded-xl transition-all"
+            >
+              View Project <ExternalLink size={18} />
+            </a>
+          </div>
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+};
+
+export default function Portfolio() {
+  const [selectedProject, setSelectedProject] = useState<any>(null);
+
+  return (
+    <div className="min-h-screen text-zinc-100 p-4 md:p-8 font-sans bg-transparent relative overflow-hidden selection:bg-purple-500/30">
       <LiquidPlasmaBackground />
+      
+      {/* MODAL POPUP */}
+      <AnimatePresence>
+        {selectedProject && <ProjectModal project={selectedProject} onClose={() => setSelectedProject(null)} />}
+      </AnimatePresence>
 
       <div className="max-w-6xl mx-auto space-y-4 relative z-10">
         
@@ -210,51 +289,29 @@ export default function Portfolio() {
         {/* BENTO GRID SECTION */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           
-          {/* 🌟 SKILLS SECTION */}
+          {/* SKILLS SECTION */}
           <Card className="md:col-span-1 md:row-span-2 flex flex-col gap-6" delay={0.3}>
-            {/* 🔥🔥🔥 FLAMING MASTERY TIER 🔥🔥🔥 */}
             <div className="flex flex-col gap-3">
                <div className="flex items-center gap-2 mb-1">
-                  <motion.div animate={{ opacity: [0.6, 1, 0.6], scale: [1, 1.1, 1] }} transition={{ duration: 0.5, repeat: Infinity }}>
-                    <Flame size={16} className="text-orange-500" />
-                  </motion.div>
+                  <motion.div animate={{ opacity: [0.6, 1, 0.6], scale: [1, 1.1, 1] }} transition={{ duration: 0.5, repeat: Infinity }}><Flame size={16} className="text-orange-500" /></motion.div>
                   <h3 className="font-bold text-sm text-orange-500 uppercase tracking-widest">Mastery</h3>
                </div>
                <div className="grid grid-cols-2 gap-3">
                   {portfolioData.topSkills.map((skill, i) => (
                     <div key={i} className="relative group flex flex-col items-center justify-center p-3 rounded-xl border border-orange-500/30 bg-orange-900/10 shadow-[0_0_15px_rgba(249,115,22,0.1)] hover:shadow-[0_0_25px_rgba(249,115,22,0.4)] transition-all">
-                       <motion.div
-                          className="absolute top-1 right-1"
-                          animate={{ opacity: [0.6, 1, 0.7, 1, 0.8], scale: [1, 1.1, 1.05, 1.15, 1] }}
-                          transition={{ duration: 0.2, repeat: Infinity, repeatType: "reverse" }}
-                        >
-                         <Flame size={14} className="text-red-500 drop-shadow-[0_0_5px_rgba(239,68,68,0.8)]" />
-                       </motion.div>
-                       <img 
-                          src={`https://cdn.simpleicons.org/${skill.slug}`} 
-                          alt={skill.name} 
-                          className="w-10 h-10 mb-2 drop-shadow-md transition-transform group-hover:scale-110" 
-                       />
+                       <motion.div className="absolute top-1 right-1" animate={{ opacity: [0.6, 1, 0.7, 1, 0.8], scale: [1, 1.1, 1.05, 1.15, 1] }} transition={{ duration: 0.2, repeat: Infinity, repeatType: "reverse" }}><Flame size={14} className="text-red-500 drop-shadow-[0_0_5px_rgba(239,68,68,0.8)]" /></motion.div>
+                       <img src={`https://cdn.simpleicons.org/${skill.slug}`} alt={skill.name} className="w-10 h-10 mb-2 drop-shadow-md transition-transform group-hover:scale-110" />
                        <span className="text-[10px] font-bold text-orange-100">{skill.name}</span>
                     </div>
                   ))}
                </div>
             </div>
-
-            {/* NORMAL TIER: Other Skills */}
             <div>
-              <div className="flex items-center gap-2 mb-3">
-                <Terminal size={16} className="text-zinc-400" />
-                <h3 className="font-bold text-xs text-zinc-400 uppercase tracking-widest">Toolkit</h3>
-              </div>
+              <div className="flex items-center gap-2 mb-3"><Terminal size={16} className="text-zinc-400" /><h3 className="font-bold text-xs text-zinc-400 uppercase tracking-widest">Toolkit</h3></div>
               <div className="flex flex-wrap gap-2">
                 {portfolioData.skills.map((skill, i) => (
                   <div key={i} className="flex items-center gap-2 px-3 py-1.5 bg-white/5 rounded-lg border border-white/10 hover:bg-white/10 transition-colors">
-                    <img 
-                      src={`https://cdn.simpleicons.org/${skill.slug}/white`} 
-                      alt={skill.name} 
-                      className="w-3.5 h-3.5 opacity-70" 
-                    />
+                    <img src={`https://cdn.simpleicons.org/${skill.slug}/white`} alt={skill.name} className="w-3.5 h-3.5 opacity-70" />
                     <span className="text-xs text-zinc-300">{skill.name}</span>
                   </div>
                 ))}
@@ -262,47 +319,41 @@ export default function Portfolio() {
             </div>
           </Card>
 
+          {/* FEATURED PROJECTS (CLICKABLE CARDS) */}
           <Card className="md:col-span-3 min-h-[300px]" delay={0.4}>
-            <div className="flex items-center gap-2 mb-6">
-              <Code2 size={20} className="text-purple-400" />
-              <h3 className="font-bold text-lg">Featured Projects</h3>
-            </div>
+            <div className="flex items-center gap-2 mb-6"><Code2 size={20} className="text-purple-400" /><h3 className="font-bold text-lg">Featured Projects</h3></div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {portfolioData.projects.map((project, i) => (
-                <a key={i} href={project.link} target="_blank" rel="noopener noreferrer" className="group relative bg-black/50 p-5 rounded-2xl border border-white/10 hover:border-white/30 transition-all cursor-pointer overflow-hidden">
-                  
+                <div 
+                  key={i} 
+                  // Clicking the card opens the Modal
+                  onClick={() => setSelectedProject(project)}
+                  className="group relative bg-black/50 p-5 rounded-2xl border border-white/10 hover:border-white/30 transition-all cursor-pointer overflow-hidden"
+                >
                   {/* PROJECT IMAGE OR GRADIENT */}
                   {project.image ? (
-                    <img 
-                      src={project.image} 
-                      alt={project.title} 
-                      className="absolute top-0 left-0 w-full h-full object-cover opacity-50 group-hover:opacity-30 transition-opacity" 
-                    />
+                    <img src={project.image} alt={project.title} className="absolute top-0 left-0 w-full h-full object-cover opacity-50 group-hover:opacity-30 transition-opacity" />
                   ) : (
                     <div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r ${project.color}`} />
                   )}
                   
                   <ProjectIconAnimation icon={project.icon || ""} />
                   
-                  {/* 🔥 NEW: PULSING LIVE STATUS INDICATOR 🔥 */}
                   {project.status && (
                     <div className="absolute top-3 right-3 flex items-center gap-1.5 px-2.5 py-1 bg-green-900/80 border border-green-500/50 rounded-full z-20 backdrop-blur-md shadow-[0_0_10px_rgba(34,197,94,0.5)]">
-                      <span className="relative flex h-2 w-2">
-                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                        <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
-                      </span>
+                      <span className="relative flex h-2 w-2"><span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span><span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span></span>
                       <span className="text-[10px] font-bold text-green-100 tracking-wider uppercase">{project.status}</span>
                     </div>
                   )}
 
                   <div className="relative z-10 mt-2">
                     <h4 className="font-bold text-white text-lg mb-2 group-hover:text-blue-400 transition-colors drop-shadow-md">{project.title}</h4>
-                    <p className="text-sm text-zinc-300 mb-4 h-10">{project.description}</p>
+                    <p className="text-sm text-zinc-300 mb-4 h-10 line-clamp-2">{project.description}</p>
                     <div className="flex flex-wrap gap-2">
                       {project.tags.map((tag, j) => <span key={j} className="text-[10px] px-2 py-1 bg-white/10 rounded text-zinc-300 border border-white/10">{tag}</span>)}
                     </div>
                   </div>
-                </a>
+                </div>
               ))}
             </div>
           </Card>
@@ -316,12 +367,8 @@ export default function Portfolio() {
             ))}
           </Card>
 
-          {/* CERTIFICATIONS SECTION */}
           <Card className="md:col-span-1" delay={0.6}>
-            <div className="flex items-center gap-2 mb-4">
-              <Cpu size={20} className="text-orange-400" />
-              <h3 className="font-bold text-sm">Certs</h3>
-            </div>
+            <div className="flex items-center gap-2 mb-4"><Cpu size={20} className="text-orange-400" /><h3 className="font-bold text-sm">Certs</h3></div>
             <ul className="space-y-3">
               {portfolioData.certifications.map((cert, i) => (
                 <li key={i} className="text-xs text-zinc-300 border-l-2 border-zinc-700 pl-3 py-1 hover:border-orange-400 hover:text-white transition-colors">
