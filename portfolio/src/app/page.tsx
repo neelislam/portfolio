@@ -2,19 +2,20 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { Github, Linkedin, Mail, ExternalLink, Code2, Terminal, Cpu, Globe } from "lucide-react";
+import { Github, Linkedin, Mail, ExternalLink, Code2, Terminal, Cpu, Globe, Instagram, Facebook } from "lucide-react";
 
 // --- 🛠️ EDIT THIS DATA TO UPDATE YOUR PORTFOLIO 🛠️ ---
 const portfolioData = {
-  name: "Rabiul Islam Apu",
+  name: "Rabiul Islam",
   title: "Full Stack Engineer & UI Designer",
   bio: "I build pixel-perfect, engaging, and accessible digital experiences. Obsessed with performance and clean code.",
-  location: "San Francisco, CA",
-  email: "alex@example.com",
+  location: "Bangladesh",
+  email: "alex@example.com", // You can change this too!
   socials: {
-    github: "https://github.com",
-    linkedin: "https://linkedin.com",
-    twitter: "https://twitter.com",
+    github: "https://github.com/neelislam",
+    linkedin: "https://www.linkedin.com/in/rabiul-islam-8399391aa/",
+    instagram: "https://www.instagram.com/neel_islam_/",
+    facebook: "https://www.facebook.com/rabiul.islam.apu.3",
   },
   skills: [
     "React", "Next.js", "TypeScript", "Tailwind", "Python", "Django", "PostgreSQL", "Docker", "AWS"
@@ -27,25 +28,12 @@ const portfolioData = {
   projects: [
     {
       title: "E-Commerce AI",
-      description: "An AI-powered shopping assistant that recommends products based on user behavior.",
+      description: "An AI-powered shopping assistant that recommends products.",
       tags: ["Next.js", "OpenAI", "Stripe"],
       link: "#",
       color: "from-blue-500 to-cyan-500"
     },
-    {
-      title: "SaaS Dashboard",
-      description: "Real-time analytics dashboard with heavy data visualization and dark mode.",
-      tags: ["React", "D3.js", "Firebase"],
-      link: "#",
-      color: "from-purple-500 to-pink-500"
-    },
-    {
-      title: "Social Connect",
-      description: "A decentralized social media platform focusing on privacy and speed.",
-      tags: ["Flutter", "Go", "GraphQL"],
-      link: "#",
-      color: "from-orange-500 to-red-500"
-    }
+    // ... keep your other projects here
   ],
   certifications: [
     "AWS Certified Solutions Architect",
@@ -96,21 +84,37 @@ export default function Portfolio() {
 
           {/* Socials & Photo Placeholder - Tall */}
           <Card className="md:col-span-1 flex flex-col justify-between" delay={0.2}>
-            <div>
-              <img src="/me.jpg" alt="Profile Picture" className="w-16 h-16 rounded-2xl mb-6 object-cover border-2 border-zinc-800" />
-              <p className="text-zinc-400 text-sm mb-4">{portfolioData.bio}</p>
-            </div>
-            <div className="flex gap-4">
-              <a href={portfolioData.socials.github} target="_blank" className="p-2 bg-zinc-800 rounded-full hover:bg-white hover:text-black transition-all">
-                <Github size={20} />
-              </a>
-              <a href={portfolioData.socials.linkedin} target="_blank" className="p-2 bg-zinc-800 rounded-full hover:bg-blue-600 hover:text-white transition-all">
-                <Linkedin size={20} />
-              </a>
-              <a href={`mailto:${portfolioData.email}`} className="p-2 bg-zinc-800 rounded-full hover:bg-green-500 hover:text-white transition-all">
-                <Mail size={20} />
-              </a>
-            </div>
+            <div className="flex gap-4 flex-wrap">
+  {/* GitHub */}
+  <a href={portfolioData.socials.github} target="_blank" rel="noopener noreferrer" 
+     className="p-2 bg-zinc-800 rounded-full hover:bg-white hover:text-black transition-all">
+    <Github size={20} />
+  </a>
+
+  {/* LinkedIn */}
+  <a href={portfolioData.socials.linkedin} target="_blank" rel="noopener noreferrer" 
+     className="p-2 bg-zinc-800 rounded-full hover:bg-blue-600 hover:text-white transition-all">
+    <Linkedin size={20} />
+  </a>
+
+  {/* Facebook */}
+  <a href={portfolioData.socials.facebook} target="_blank" rel="noopener noreferrer" 
+     className="p-2 bg-zinc-800 rounded-full hover:bg-blue-500 hover:text-white transition-all">
+    <Facebook size={20} />
+  </a>
+
+  {/* Instagram */}
+  <a href={portfolioData.socials.instagram} target="_blank" rel="noopener noreferrer" 
+     className="p-2 bg-zinc-800 rounded-full hover:bg-pink-600 hover:text-white transition-all">
+    <Instagram size={20} />
+  </a>
+
+  {/* Email */}
+  <a href={`mailto:${portfolioData.email}`} 
+     className="p-2 bg-zinc-800 rounded-full hover:bg-green-500 hover:text-white transition-all">
+    <Mail size={20} />
+  </a>
+</div>
           </Card>
         </div>
 
