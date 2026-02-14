@@ -33,6 +33,7 @@ const portfolioData = {
     { name: "Dart", slug: "dart" },
     { name: "Java", slug: "openjdk" },
     { name: "Python", slug: "python" },
+    { name: "Django", slug: "django" },
     { name: "C", slug: "c" },
     { name: "C++", slug: "cplusplus" },
     { name: "PHP", slug: "php" },
