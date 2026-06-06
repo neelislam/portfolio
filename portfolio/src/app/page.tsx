@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { 
   Github, Linkedin, Mail, Instagram, Facebook, 
   Terminal, Code2, Cpu, Globe, BookOpen, Activity, Smartphone, 
-  ExternalLink, Flame, X, ChevronLeft, ChevronRight 
+  ExternalLink, Flame, X, ChevronLeft, ChevronRight, Download // <-- Added Download icon here
 } from "lucide-react";
 
 // --- 🛠️ DATA SECTION 🛠️ ---
@@ -15,6 +15,7 @@ const portfolioData = {
   bio: "I build pixel-perfect, engaging, and accessible digital experiences. Obsessed with performance and clean code.",
   location: "Bangladesh",
   email: "rabiul17.ri@gmail.com",
+  cv: "/rabiul_cv.pdf", // <-- Added your CV path here
   socials: {
     github: "https://github.com/neelislam",
     linkedin: "https://www.linkedin.com/in/rabiul-islam-8399391aa/",
@@ -64,7 +65,7 @@ const portfolioData = {
       description: "A feature-rich Android app for buying and selling books with AI integration.",
       tags: ["Android", "Java", "Firebase", "AI"],
       link: "https://github.com/neelislam/book_shop_online",
-      image: "/Simple Home page copy.png", // <--- 📸 ADDED BACKGROUND IMAGE HERE
+      image: "/Simple Home page copy.png", 
       icon: "book",
       gallery: [
         { img: "/Simple Home page.png", title: "Intuitive Home", desc: "A clean, modern interface designed for easy navigation and discovery." },
@@ -264,7 +265,19 @@ export default function Portfolio() {
               <span className="text-sm text-zinc-300 font-medium tracking-wide">Available for hire</span>
             </div>
             <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-4 text-white drop-shadow-lg">Hey, I'm {portfolioData.name}.</h1>
-            <p className="text-xl text-zinc-300 max-w-lg leading-relaxed">{portfolioData.title}</p>
+            <p className="text-xl text-zinc-300 max-w-lg leading-relaxed mb-6">{portfolioData.title}</p>
+            
+            {/* 🆕 DOWNLOAD CV BUTTON ADDED HERE 🆕 */}
+            <div className="flex">
+              <a
+                href={portfolioData.cv}
+                download="Rabiul_Islam_CV.pdf"
+                className="flex items-center gap-2 px-6 py-3 bg-white text-black font-bold rounded-xl hover:bg-zinc-200 transition-all duration-300 shadow-[0_0_15px_rgba(255,255,255,0.2)] hover:shadow-[0_0_25px_rgba(255,255,255,0.4)]"
+              >
+                <Download size={20} />
+                Download CV
+              </a>
+            </div>
           </Card>
 
           <Card className="md:col-span-1 flex flex-col justify-between overflow-hidden" delay={0.2}>
