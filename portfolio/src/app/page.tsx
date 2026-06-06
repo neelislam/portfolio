@@ -66,7 +66,15 @@ const portfolioData = {
       link: "https://soseuweb.pythonanywhere.com/",
       image: "/soseu.jpg",
       icon: "globe",
-      status: "LIVE NOW"
+      status: "LIVE NOW",
+      // Add the gallery array below to fix the modal:
+      gallery: [
+        { 
+          img: "/soseu.jpg", 
+          title: "Soseu E-commerce", 
+          desc: "A fully functional e-commerce platform built with Python and Django." 
+        }
+      ]
     },
     {
       title: "AGEC Detector",
@@ -113,7 +121,15 @@ const portfolioData = {
       tags: ["Mobile", "Health", "Firebase"],
       link: "https://github.com/neelislam/patient_history_app",
       color: "from-red-500 to-pink-500",
-      icon: "heart"
+      icon: "heart",
+      image: "/ph.png", 
+      gallery: [
+        { 
+          img: "/ph.png", 
+          title: "Patient History", 
+          desc: "A digital medical record tracking system for secure, real-time data storage." 
+        }
+      ]
     }
   ],
   certifications: [
