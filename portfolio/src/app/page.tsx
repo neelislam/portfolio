@@ -74,7 +74,15 @@ const portfolioData = {
       tags: ["Python", "CNNs", "Data Scraping"],
       link: "https://github.com/neelislam/EthnoFace-AGEC",
       color: "from-green-500 to-teal-500",
-      icon: "cpu"
+      icon: "cpu",
+      image: "/agec_cover.png", 
+      gallery: [
+        { 
+          img: "/agec_cover.png", 
+          title: "EthnoFace-AGEC", 
+          desc: "Facial attribute detection and demographic classification using Deep Learning." 
+        }
+      ]
     },
     {
       title: "Bookshop App",
