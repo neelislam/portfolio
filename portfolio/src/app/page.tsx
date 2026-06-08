@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
@@ -8,7 +7,6 @@ import {
   ExternalLink, Flame, X, ChevronLeft, ChevronRight, Download,
   Sun, Moon, FileText, FlaskConical
 } from "lucide-react";
-
 // --- 🛠️ DATA SECTION 🛠️ ---
 const portfolioData = {
   name: "Rabiul Islam Apu",
