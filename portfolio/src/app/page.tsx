@@ -7,6 +7,7 @@ import {
   ExternalLink, Flame, X, ChevronLeft, ChevronRight, Download,
   Sun, Moon, FileText, FlaskConical
 } from "lucide-react";
+
 // --- 🛠️ DATA SECTION 🛠️ ---
 const portfolioData = {
   name: "Rabiul Islam Apu",
@@ -46,14 +47,22 @@ const portfolioData = {
   ],
   research: [
     {
+      title: "Cross-Asset Framework for Tri-modal Based Altcoin Price Prediction Using Deep Learning",
+      status: "Submitted",
+      download: "/crypto.pdf",
+      description: "A framework integrating public sentiment from social media, on-chain metrics, and historical data to predict altcoin prices using deep learning models (LSTM, GRU)[cite: 1]. Achieved a peak R² score of 0.9649 for LTC in 24-hour forecasting[cite: 1]."
+    },
+    {
       title: "A Machine Learning Framework for Multi-Class Diabetes Prediction Using Stacking Ensemble and SHAP Explainability",
       status: "Accepted Paper",
-      download: "/SHAP.pdf"
+      download: "/SHAP.pdf",
+      description: "An advanced machine learning framework focused on accurately classifying multi-class diabetes utilizing stacking ensembles."
     },
     {
       title: "EthnoFace – Developing a predictive model for facial attribute detection via Deep Learning.",
       status: "Ongoing Research",
-      link: "https://github.com/neelislam/EthnoFace-AGEC"
+      link: "https://github.com/neelislam/EthnoFace-AGEC",
+      description: "Building an extensive deep learning pipeline utilizing the AGEC framework to precisely identify demographic characteristics from facial imagery."
     }
   ],
   projects: [
@@ -65,7 +74,6 @@ const portfolioData = {
       image: "/soseu.jpg",
       icon: "globe",
       status: "LIVE NOW",
-      // Add the gallery array below to fix the modal:
       gallery: [
         { 
           img: "/soseu.jpg", 
@@ -154,7 +162,7 @@ const Card = ({ children, className, delay = 0, onClick }: { children: React.Rea
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.5, delay }}
     onClick={onClick}
-    className={`bg-white/60 dark:bg-black/30 border border-slate-200 dark:border-white/10 backdrop-blur-md rounded-3xl p-6 hover:bg-white/80 dark:hover:bg-black/40 shadow-lg dark:shadow-xl transition-all duration-300 ${className} ${onClick ? 'cursor-pointer' : ''}`}
+    className={`bg-white/60 dark:bg-black/30 border border-slate-200 dark:border-white/10 backdrop-blur-md rounded-3xl p-6 hover:bg-white/80 dark:hover:bg-black/40 shadow-lg dark:shadow-[0_8px_30px_rgb(0,0,0,0.12)] hover:shadow-xl dark:hover:shadow-[0_8px_30px_rgba(255,255,255,0.05)] transition-all duration-300 ${className} ${onClick ? 'cursor-pointer' : ''}`}
   >
     {children}
   </motion.div>
@@ -201,7 +209,7 @@ const ProjectModal = ({ project, onClose, isDark }: { project: any, onClose: () 
         </button>
 
         {project.gallery ? (
-          <div className="w-full md:w-2/3 h-1/2 md:h-full relative bg-slate-100 dark:bg-black flex items-center justify-center">
+          <div className="w-full md:w-2/3 h-1/2 md:h-full relative bg-slate-100 dark:bg-black flex items-center justify-center group">
             <AnimatePresence mode="wait">
               <motion.img 
                 key={currentSlide}
@@ -215,10 +223,10 @@ const ProjectModal = ({ project, onClose, isDark }: { project: any, onClose: () 
               />
             </AnimatePresence>
             
-            <button onClick={prevSlide} className="absolute left-4 top-1/2 -translate-y-1/2 p-2 bg-white/80 dark:bg-black/50 rounded-full hover:bg-slate-200 dark:hover:bg-white/20 text-slate-800 dark:text-white transition-all shadow-md">
+            <button onClick={prevSlide} className="absolute left-4 top-1/2 -translate-y-1/2 p-2 bg-white/80 dark:bg-black/50 rounded-full hover:bg-slate-200 dark:hover:bg-white/20 text-slate-800 dark:text-white transition-all shadow-md opacity-0 group-hover:opacity-100">
               <ChevronLeft size={24} />
             </button>
-            <button onClick={nextSlide} className="absolute right-4 top-1/2 -translate-y-1/2 p-2 bg-white/80 dark:bg-black/50 rounded-full hover:bg-slate-200 dark:hover:bg-white/20 text-slate-800 dark:text-white transition-all shadow-md">
+            <button onClick={nextSlide} className="absolute right-4 top-1/2 -translate-y-1/2 p-2 bg-white/80 dark:bg-black/50 rounded-full hover:bg-slate-200 dark:hover:bg-white/20 text-slate-800 dark:text-white transition-all shadow-md opacity-0 group-hover:opacity-100">
               <ChevronRight size={24} />
             </button>
             
@@ -260,7 +268,7 @@ const ProjectModal = ({ project, onClose, isDark }: { project: any, onClose: () 
               href={project.link} 
               target="_blank" 
               rel="noopener noreferrer"
-              className="flex items-center justify-center gap-2 w-full py-3 bg-blue-600 hover:bg-blue-500 text-white font-semibold rounded-xl transition-all shadow-lg"
+              className="flex items-center justify-center gap-2 w-full py-3 bg-blue-600 hover:bg-blue-500 text-white font-semibold rounded-xl transition-all shadow-[0_0_15px_rgba(37,99,235,0.4)] hover:shadow-[0_0_25px_rgba(37,99,235,0.6)]"
             >
               View Project <ExternalLink size={18} />
             </a>
@@ -275,7 +283,6 @@ export default function Portfolio() {
   const [selectedProject, setSelectedProject] = useState<any>(null);
   const [isDarkMode, setIsDarkMode] = useState(true);
 
-  // Toggle dark mode classes on html/body if needed, or rely on wrapper
   useEffect(() => {
     if (isDarkMode) {
       document.documentElement.classList.add('dark');
@@ -316,7 +323,7 @@ export default function Portfolio() {
                 <a
                   href={portfolioData.cv}
                   download="Rabiul_Islam_Apu_CV.pdf"
-                  className="flex items-center gap-2 px-6 py-3 bg-slate-900 dark:bg-white text-white dark:text-black font-bold rounded-xl hover:bg-slate-800 dark:hover:bg-zinc-200 transition-all duration-300 shadow-lg dark:shadow-[0_0_15px_rgba(255,255,255,0.2)] dark:hover:shadow-[0_0_25px_rgba(255,255,255,0.4)]"
+                  className="flex items-center gap-2 px-6 py-3 bg-slate-900 dark:bg-white text-white dark:text-black font-bold rounded-xl hover:bg-slate-800 dark:hover:bg-zinc-200 transition-all duration-300 shadow-[0_4px_14px_0_rgba(0,0,0,0.39)] dark:shadow-[0_0_15px_rgba(255,255,255,0.2)] dark:hover:shadow-[0_0_25px_rgba(255,255,255,0.4)]"
                 >
                   <Download size={20} />
                   Download CV
@@ -334,10 +341,10 @@ export default function Portfolio() {
               </div>
               <div className="flex gap-3 flex-wrap">
                 <a href={portfolioData.socials.github} target="_blank" className="p-2 bg-slate-100 dark:bg-white/5 rounded-full hover:bg-slate-200 dark:hover:bg-white text-slate-700 dark:text-white dark:hover:text-black transition-all border border-slate-200 dark:border-white/10"><Github size={18} /></a>
-                <a href={portfolioData.socials.linkedin} target="_blank" className="p-2 bg-slate-100 dark:bg-white/5 rounded-full hover:bg-blue-600 hover:text-white transition-all border border-slate-200 dark:border-white/10 dark:text-white text-slate-700"><Linkedin size={18} /></a>
-                <a href={portfolioData.socials.facebook} target="_blank" className="p-2 bg-slate-100 dark:bg-white/5 rounded-full hover:bg-blue-500 hover:text-white transition-all border border-slate-200 dark:border-white/10 dark:text-white text-slate-700"><Facebook size={18} /></a>
-                <a href={portfolioData.socials.instagram} target="_blank" className="p-2 bg-slate-100 dark:bg-white/5 rounded-full hover:bg-pink-600 hover:text-white transition-all border border-slate-200 dark:border-white/10 dark:text-white text-slate-700"><Instagram size={18} /></a>
-                <a href={`mailto:${portfolioData.email}`} className="p-2 bg-slate-100 dark:bg-white/5 rounded-full hover:bg-green-500 hover:text-white transition-all border border-slate-200 dark:border-white/10 dark:text-white text-slate-700"><Mail size={18} /></a>
+                <a href={portfolioData.socials.linkedin} target="_blank" className="p-2 bg-slate-100 dark:bg-white/5 rounded-full hover:bg-blue-600 hover:text-white transition-all border border-slate-200 dark:border-white/10 dark:text-white text-slate-700 hover:shadow-[0_0_15px_rgba(37,99,235,0.5)]"><Linkedin size={18} /></a>
+                <a href={portfolioData.socials.facebook} target="_blank" className="p-2 bg-slate-100 dark:bg-white/5 rounded-full hover:bg-blue-500 hover:text-white transition-all border border-slate-200 dark:border-white/10 dark:text-white text-slate-700 hover:shadow-[0_0_15px_rgba(59,130,246,0.5)]"><Facebook size={18} /></a>
+                <a href={portfolioData.socials.instagram} target="_blank" className="p-2 bg-slate-100 dark:bg-white/5 rounded-full hover:bg-pink-600 hover:text-white transition-all border border-slate-200 dark:border-white/10 dark:text-white text-slate-700 hover:shadow-[0_0_15px_rgba(219,39,119,0.5)]"><Instagram size={18} /></a>
+                <a href={`mailto:${portfolioData.email}`} className="p-2 bg-slate-100 dark:bg-white/5 rounded-full hover:bg-green-500 hover:text-white transition-all border border-slate-200 dark:border-white/10 dark:text-white text-slate-700 hover:shadow-[0_0_15px_rgba(34,197,94,0.5)]"><Mail size={18} /></a>
               </div>
             </Card>
           </div>
@@ -364,7 +371,7 @@ export default function Portfolio() {
                 <div className="flex items-center gap-2 mb-3"><Terminal size={16} className="text-slate-500 dark:text-zinc-400" /><h3 className="font-bold text-xs text-slate-500 dark:text-zinc-400 uppercase tracking-widest">Toolkit</h3></div>
                 <div className="flex flex-wrap gap-2">
                   {portfolioData.skills.map((skill, i) => (
-                    <div key={i} className="flex items-center gap-2 px-3 py-1.5 bg-slate-100 dark:bg-white/5 rounded-lg border border-slate-200 dark:border-white/10 hover:bg-slate-200 dark:hover:bg-white/10 transition-colors">
+                    <div key={i} className="flex items-center gap-2 px-3 py-1.5 bg-slate-100 dark:bg-white/5 rounded-lg border border-slate-200 dark:border-white/10 hover:bg-slate-200 dark:hover:bg-white/10 hover:border-slate-400 dark:hover:border-white/30 transition-all">
                       <img src={`https://cdn.simpleicons.org/${skill.slug}/${isDarkMode ? 'white' : 'black'}`} alt={skill.name} className="w-3.5 h-3.5 opacity-70" />
                       <span className="text-xs text-slate-700 dark:text-zinc-300">{skill.name}</span>
                     </div>
@@ -380,7 +387,7 @@ export default function Portfolio() {
                   <div 
                     key={i} 
                     onClick={() => setSelectedProject(project)}
-                    className="group relative bg-white/50 dark:bg-black/50 p-5 rounded-2xl border border-slate-200 dark:border-white/10 hover:border-blue-400 dark:hover:border-white/30 transition-all cursor-pointer overflow-hidden shadow-sm hover:shadow-md"
+                    className="group relative bg-white/50 dark:bg-black/50 p-5 rounded-2xl border border-slate-200 dark:border-white/10 hover:border-blue-400 dark:hover:border-white/30 transition-all cursor-pointer overflow-hidden shadow-sm hover:shadow-[0_0_20px_rgba(59,130,246,0.15)]"
                   >
                     {project.image ? (
                       <img src={project.image} alt={project.title} className="absolute top-0 left-0 w-full h-full object-cover opacity-20 dark:opacity-50 group-hover:opacity-10 dark:group-hover:opacity-30 transition-opacity" />
@@ -432,31 +439,40 @@ export default function Portfolio() {
               </ul>
             </Card>
             
-            {/* NEW RESEARCH & PUBLICATIONS SECTION */}
+            {/* RESEARCH & PUBLICATIONS SECTION */}
             <Card className="md:col-span-4" delay={0.7}>
               <div className="flex items-center gap-2 mb-6">
                 <FlaskConical size={22} className="text-teal-600 dark:text-teal-400" />
                 <h3 className="font-bold text-lg text-slate-900 dark:text-white">Research & Publications</h3>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 {portfolioData.research.map((item, i) => (
-                  <div key={i} className="flex flex-col justify-between p-5 bg-white/50 dark:bg-white/5 rounded-2xl border border-slate-200 dark:border-white/10 hover:border-teal-400 dark:hover:border-teal-500/50 transition-colors">
+                  <div key={i} className="flex flex-col justify-between p-6 bg-white/50 dark:bg-black/40 rounded-2xl border border-slate-200 dark:border-white/10 hover:border-teal-400 dark:hover:border-teal-500/50 transition-all shadow-sm hover:shadow-[0_0_20px_rgba(20,184,166,0.15)] group">
                     <div>
-                      <div className="flex items-center gap-2 mb-3">
-                        <span className={`text-[10px] font-bold tracking-wider uppercase px-2 py-1 rounded border ${item.status === 'Accepted Paper' ? 'bg-green-100 text-green-700 border-green-300 dark:bg-green-900/30 dark:text-green-300 dark:border-green-500/30' : 'bg-blue-100 text-blue-700 border-blue-300 dark:bg-blue-900/30 dark:text-blue-300 dark:border-blue-500/30'}`}>
+                      <div className="flex items-center gap-2 mb-4">
+                        <span className={`text-[10px] font-bold tracking-wider uppercase px-2.5 py-1 rounded-md border shadow-sm ${
+                          item.status === 'Accepted Paper' ? 'bg-green-100 text-green-700 border-green-300 dark:bg-green-900/30 dark:text-green-300 dark:border-green-500/30' : 
+                          item.status === 'Submitted' ? 'bg-yellow-100 text-yellow-700 border-yellow-300 dark:bg-yellow-900/30 dark:text-yellow-300 dark:border-yellow-500/30' :
+                          'bg-blue-100 text-blue-700 border-blue-300 dark:bg-blue-900/30 dark:text-blue-300 dark:border-blue-500/30'
+                        }`}>
                           {item.status}
                         </span>
                       </div>
-                      <h4 className="font-semibold text-sm md:text-base text-slate-800 dark:text-zinc-200 leading-snug mb-4">
+                      <h4 className="font-semibold text-sm md:text-base text-slate-900 dark:text-zinc-100 leading-snug mb-3 group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors">
                         {item.title}
                       </h4>
+                      {item.description && (
+                         <p className="text-xs text-slate-600 dark:text-zinc-400 mb-6 leading-relaxed">
+                           {item.description}
+                         </p>
+                      )}
                     </div>
                     
                     {item.download ? (
                       <a 
                         href={item.download} 
                         download
-                        className="self-start flex items-center gap-2 text-xs font-semibold px-4 py-2 bg-slate-900 dark:bg-white text-white dark:text-black rounded-lg hover:bg-slate-700 dark:hover:bg-zinc-200 transition-colors shadow-sm"
+                        className="self-start flex items-center gap-2 text-xs font-semibold px-4 py-2 bg-slate-900 dark:bg-white text-white dark:text-black rounded-lg hover:bg-slate-700 dark:hover:bg-zinc-200 transition-all shadow-md dark:shadow-[0_0_10px_rgba(255,255,255,0.1)]"
                       >
                         <FileText size={14} /> Download Paper
                       </a>
@@ -465,7 +481,7 @@ export default function Portfolio() {
                         href={item.link} 
                         target="_blank" 
                         rel="noopener noreferrer"
-                        className="self-start flex items-center gap-2 text-xs font-semibold px-4 py-2 bg-slate-200 dark:bg-white/10 text-slate-800 dark:text-white rounded-lg hover:bg-slate-300 dark:hover:bg-white/20 transition-colors"
+                        className="self-start flex items-center gap-2 text-xs font-semibold px-4 py-2 bg-slate-200 dark:bg-white/10 text-slate-800 dark:text-white rounded-lg hover:bg-slate-300 dark:hover:bg-white/20 transition-all border border-transparent dark:border-white/5 hover:border-slate-400 dark:hover:border-white/20"
                       >
                         <Github size={14} /> View Repository
                       </a>
